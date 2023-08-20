@@ -5,31 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Teamable</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="app.js"></script>
   </head>
   <body>
     <div id="display-view">
       <h1>User Profile</h1>
       <img src="profile.jpeg" alt="Profile Photo" />
-      <span>Name: </span><b>Harshit Singh</b>
+      <span>Name: </span><b id="name">Harshit Singh</b>
       <hr />
-      <span>Email: </span><b>auharsh@gmail.com</b>
+      <span>Email: </span><b id="email">auharsh@gmail.com</b>
       <hr />
-      <span>Interests: </span><b>Programming</b>
+      <span>Interests: </span><b id="interests">Programming</b>
       <hr />
-      <button>Edit Profile</button>
+      <button onclick="handleEditProfile()">Edit Profile</button>
     </div>
     <div id="edit-view">
       <h1>User Profile</h1>
       <img src="profile.jpeg" alt="Profile Photo" />
-      <span>Name: </span><input type="text" placeholder="Harshit Singh" id="" />
+      <span>Name: </span>
+      <input type="text" placeholder="Harshit Singh" id="input-name" />
       <hr />
       <span>Email: </span>
-      <input type="text" placeholder="auharsh@gmail.com" id="" />
+      <input type="text" placeholder="auharsh@gmail.com" id="input-email" />
       <hr />
       <span>Interests: </span>
-      <input type="text" placeholder="Programming" id="" />
+      <input type="text" placeholder="Programming" id="input-interests" />
       <hr />
-      <button>Update Profile</button>
+      <button onclick="handleUpdateProfile()">Update Profile</button>
     </div>
   </body>
 </html>
