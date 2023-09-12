@@ -2,7 +2,12 @@
   "name": "my-vue-app",
   "version": "0.1.0",
   "dependencies": {
-    "core-js": "^3.32.2",
+    "@vue/cli-service": "^5.0.8",
+    "@vue/compiler-sfc": "^3.3.4",
+    "core-js": "3.32.2",
     "vue": "3.3.4"
+  },
+  "scripts": {
+    "serve": "node_modules/@vue/cli-service/bin/vue-cli-service.js serve"
   }
 }
