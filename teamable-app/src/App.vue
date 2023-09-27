@@ -1,38 +1,89 @@
 <template>
   <div>
-    <div id="display-view">
+    <div v-show="!isEditMode">
       <h1>User Profile</h1>
-      <img src="profile.jpeg" alt="Profile Photo" />
-      <span>Name: </span><b id="name">Harshit Singh</b>
+      <img :src="image" alt="Profile Photo" />
+      <span>Name: </span><b id="name">{{ name }}</b>
       <hr />
-      <span>Email: </span><b id="email">auharsh@gmail.com</b>
+      <span>Email: </span><b id="email">{{ email }}</b>
       <hr />
-      <span>Interests: </span><b id="interests">Programming</b>
+      <span>Interests: </span><b id="interests">{{ interests }}</b>
       <hr />
-      <button onclick="handleEditProfile()">Edit Profile</button>
+      <button @click="handleEditProfile">Edit Profile</button>
     </div>
-    <div id="edit-view">
+    <div v-show="isEditMode">
       <h1>User Profile</h1>
-      <img src="profile.jpeg" alt="Profile Photo" />
+      <img :src="image" alt="Profile Photo" />
       <span>Name: </span>
-      <input type="text" placeholder="Harshit Singh" id="input-name" />
+      <input type="text" v-model="name" id="input-name" />
       <hr />
       <span>Email: </span>
-      <input type="text" placeholder="auharsh@gmail.com" id="input-email" />
+      <input type="text" v-model="email" id="input-email" />
       <hr />
       <span>Interests: </span>
-      <input type="text" placeholder="Programming" id="input-interests" />
+      <input type="text" v-model="interests" id="input-interests" />
       <hr />
-      <button onclick="handleUpdateProfile()">Update Profile</button>
+      <button @click="handleUpdateProfile">Update Profile</button>
     </div>
   </div>
 </template>
 
 <script>
+import image from "./profile.jpeg";
 export default {
   name: "App",
-  components: {},
+  data() {
+    return {
+      image: image,
+      name: "Harshit Singh",
+      email: "harshit.singh@example.com",
+      interests: "Programming, Reading",
+      isEditMode: false,
+    };
+  },
+  methods: {
+    handleEditProfile() {
+      this.isEditMode = true;
+    },
+    handleUpdateProfile() {
+      this.isEditMode = false;
+    },
+  },
 };
 </script>
 
-<style></style>
+<style>
+img {
+  width: 320px;
+  height: 280px;
+  display: block;
+  margin-bottom: 40px;
+}
+
+div {
+  width: 80%;
+  margin: 40px auto;
+}
+
+hr {
+  width: 400px;
+  margin: 25px 0;
+}
+
+button {
+  width: 160px;
+  height: 45px;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input {
+  width: 200px;
+  font-size: 15px;
+  padding: 10px;
+}
+</style>

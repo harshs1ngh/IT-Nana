@@ -35,6 +35,6 @@ export default {
   border: 1px solid steelblue;
   padding: 30px;
   max-width: 500px;
-  margin: auto;
+  margin: 20px auto;
 }
 </style>
