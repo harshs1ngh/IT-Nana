@@ -6,19 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
-        function handleSaveTask() {
+        async function loadTasks() {
+            res = await fetch('get-tasks', {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            jsonRes = await res.json()
+
+            ulEl = document.getElementById("tasks")
+            for (task of jsonRes.tasks) {
+                liEl = document.createElement("li")
+                liEl.textContent = task
+                ulEl.appendChild(liEl)
+            }
+        }
+
+        async function handleSaveTask() {
             ulEl = document.getElementById("tasks");
             inputEl = document.getElementById("task");
 
             liEl = document.createElement("li");
             liEl.textContent = inputEl.value;
             ulEl.appendChild(liEl);
+
+            payload = {
+                task: inputEl.value,
+            }
+
+            res = await fetch('save-task', {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            jsonRes = await res.json();
+            console.log(jsonRes);
         }
     </script>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body onload="loadTasks()">
     <div>
         <label for="addTask">Add Task</label>
         <input id="task" type="text" placeholder="new task" />
