@@ -6,6 +6,7 @@ const { MongoClient } = require("mongodb");
 // import { MongoClient } from 'mongodb'
 
 const port = process.env.PORT || 5000;
+const { isEmptyPayload, isInvalidEmail } = require("./validator");
 
 // Connection URL
 const url = "mongodb://localhost:27017";
@@ -19,15 +20,26 @@ app.use("/", express.static(__dirname + "/dist"));
 
 //Http requests
 app.get("/get-profile", async function (req, res) {
-  const response = {
-    name: "Harshit Singh",
-    email: "harshit.singh@example.com",
-    interests: "Programming, Reading",
-  };
-
   // Use connect method to connect to the server
   await client.connect();
   console.log("Connected successfully to server");
+
+  //initiates or get the db and collection
+  const db = client.db(dbName);
+  const collection = db.collection(collectionName);
+
+  //get data from db
+  const result = await collection.findOne({ id: 1 });
+  console.log(result);
+  response = {};
+
+  if (result !== null) {
+    response = {
+      name: result.name,
+      email: result.email,
+      interests: result.interests,
+    };
+  }
   res.send(response);
 });
 
@@ -35,7 +47,7 @@ app.post("/update-profile", async function (req, res) {
   const payload = req.body;
   console.log(payload);
 
-  if (Object.keys(payload).length === 0) {
+  if (isEmptyPayload(payload) || isInvalidEmail(payload)) {
     res.send({ error: "empty payload. Couldn't update user profile" });
   } else {
     //saving/updating user profile
@@ -43,7 +55,7 @@ app.post("/update-profile", async function (req, res) {
     await client.connect();
     console.log("Connected successfully to server");
 
-    //initiates the db
+    //initiates or get the db and collection
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
 
