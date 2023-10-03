@@ -6,7 +6,7 @@ function isInvalidEmail(userObject) {
 //   return !userObject.email.includes("@");
 // };
 
-function isEmptyPayload(userObject) {
+function isEmptyPayload(payload) {
   return Object.keys(payload).length === 0;
 }
 
