@@ -48,7 +48,7 @@ app.post("/update-profile", async function (req, res) {
   console.log(payload);
 
   if (isEmptyPayload(payload) || isInvalidEmail(payload)) {
-    res.send({ error: "empty payload. Couldn't update user profile" });
+    res.send({ error: "invalid payload. Couldn't update user profile" });
   } else {
     //saving/updating user profile
     // Use connect method to connect to the server
@@ -69,4 +69,6 @@ app.post("/update-profile", async function (req, res) {
   }
 });
 
-app.listen(port, () => `Server running on port ${port}`);
+const server = app.listen(port, () => `Server running on port ${port}`);
+
+module.exports = { server, app };
